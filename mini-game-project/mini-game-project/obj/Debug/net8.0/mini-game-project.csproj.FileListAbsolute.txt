@@ -1,0 +1,14 @@
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\bin\Debug\net8.0\mini-game-project.exe
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\bin\Debug\net8.0\mini-game-project.deps.json
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\bin\Debug\net8.0\mini-game-project.runtimeconfig.json
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\bin\Debug\net8.0\mini-game-project.dll
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\bin\Debug\net8.0\mini-game-project.pdb
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.AssemblyInfoInputs.cache
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.AssemblyInfo.cs
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.csproj.CoreCompileInputs.cache
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.dll
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\refint\mini-game-project.dll
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.pdb
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\mini-game-project.genruntimeconfig.cache
+C:\Users\abdul\OneDrive\Documents\GitHub\Game-Project\mini-game-project\mini-game-project\obj\Debug\net8.0\ref\mini-game-project.dll
