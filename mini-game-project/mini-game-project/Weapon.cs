@@ -8,6 +8,7 @@ namespace mini_game_project
 {
     internal class Weapon
     {
+        Console.Writeline("Hello");
       
     }
 }
