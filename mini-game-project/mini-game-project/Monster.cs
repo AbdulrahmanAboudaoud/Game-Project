@@ -8,5 +8,12 @@ namespace mini_game_project
 {
     internal class Monster
     {
+        public string name;
+        string ID;
+        int CurrentHitPoints;
+        int MaximumDamagepoints;
+        int MaximunHitPoints;
+
+
+
     }
-}
