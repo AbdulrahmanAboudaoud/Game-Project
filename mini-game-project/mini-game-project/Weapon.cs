@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace mini_game_project
+﻿public class Weapon
 {
-    internal class Weapon
+    public int Id;
+    public string Name;
+    public int Damage;
+
+    public Weapon(int id, string name, int damage)
     {
-        Console.Writeline("Hello");
-      
+        Id = id;
+        Name = name;
+        Damage = damage;
     }
+
 }
