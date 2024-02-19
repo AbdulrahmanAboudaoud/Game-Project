@@ -25,6 +25,7 @@ public class Weapon
         Console.WriteLine($"You used {Name} and dealt {Damage} damage!");
     }
 
+    //test
     public void Drop()
     {
         Console.WriteLine($"You dropped {Name}.");
