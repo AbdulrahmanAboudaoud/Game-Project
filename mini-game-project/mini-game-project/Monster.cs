@@ -8,11 +8,13 @@ namespace mini_game_project
 {
     internal class Monster
     {
-        public string name;
-        public int ID;
-        public int CurrentHitPoints;
-        public int MaximumDamagepoints;
-        public int MaximunHitPoints;
+
+        public monster(int id, string name, int CurrentHitPoints, int MaximumDamagepoints, int MaximunHitPoints);
+
+        Id =  int id;
+        name = string name;
+
+
 
 
 
