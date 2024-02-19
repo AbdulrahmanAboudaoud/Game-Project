@@ -14,6 +14,7 @@ namespace mini_game_project
         public int MaximumDamagepoints;
         public int MaximunHitPoints;
 
+        // Constructor method.
         public Monster(int id, string name, int currentHitPoints, int maximumDamagepoints, int maximunHitPoints)
         {
             ID = id;

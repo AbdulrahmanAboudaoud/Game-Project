@@ -10,6 +10,7 @@ public class Weapon
     public string Name;
     public int Damage;
 
+    // Constructor method.
     public Weapon(int id, string name, int damage)
     {
         Id = id;

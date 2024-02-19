@@ -13,6 +13,7 @@ namespace mini_game_project
         public string Description { get; }
         public bool IsCompleted { get; set; }
 
+        // Constructor method.
         public Quest(int id, string name, string description)
         {
             ID = id;
