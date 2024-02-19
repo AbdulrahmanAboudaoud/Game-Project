@@ -24,7 +24,7 @@ class Player
     public int attack()
     {
         //Implementing weapon (weapon damage stats and implement attack logic here)
-        //it returns amount of damage made
+        //it returns amount of the damage made
     }
 }
 
