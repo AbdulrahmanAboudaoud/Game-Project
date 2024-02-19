@@ -6,13 +6,21 @@ class Player
     public string Name;
     public int Age;
     public string Gender;
+    public int CurrentHitPoints;
+    public string CurrentLocation;
+    public string CurrentWeapon;
+    public int MaximumHitPoints;
 
     // Constructor
-    public Player(string name, int age, string gender)
+    public Player(string name, int age, string gender, int currenthp, string currentlocation, string currentweapon, int maxhp)
     {
         Name = name;
         Age = age;
         Gender = gender;
+        CurrentHitPoints = currenthp;
+        CurrentLocation = currentlocation;
+        CurrentWeapon = currentweapon;
+        MaximumHitPoints = maxhp;
     }
     // Print info about the player to confirm data
     public void Confirm()
