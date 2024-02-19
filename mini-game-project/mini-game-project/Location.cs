@@ -1,4 +1,9 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace mini_game_project
 {
     internal class Location
@@ -13,6 +18,7 @@ namespace mini_game_project
         public Location LocationToSouth { get; set; }
         public Location LocationToWest { get; set; }
 
+        // Constructor method.
         public Location(int id, string name, string description, Quest questAvailableHere, Monster monsterLivingHere)
         {
             ID = id;

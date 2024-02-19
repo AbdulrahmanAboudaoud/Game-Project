@@ -1,4 +1,9 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace mini_game_project
 {
     internal class Quest
@@ -8,6 +13,7 @@ namespace mini_game_project
         public string Description { get; }
         public bool IsCompleted { get; set; }
 
+        // Constructor method.
         public Quest(int id, string name, string description)
         {
             ID = id;
