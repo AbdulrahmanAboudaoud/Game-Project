@@ -9,6 +9,8 @@ class Program
     {
         Player player = new Player("John Doe", 25, "Male", 100, "Town Square", "Rusty Sword", 100);
         Location home = World.LocationByID(World.LOCATION_ID_HOME);
+        Location townSquare = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
+        Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
         player.CurrentLocation = home.Name;
 
         Console.WriteLine("Welcome to the Giant Spider Adventure!\n");
@@ -18,29 +20,42 @@ class Program
         Console.WriteLine("you to venture into various locations, confront menacing monsters, and fulfill quests");
         Console.WriteLine("to rid the town of this arachnid menace.\n");
 
-        while (!QuitGame)
-        {
-            Console.WriteLine("What do you want to do?\n1: Play\n2: Quit");
-            int choice = Convert.ToInt32(Console.ReadLine().Trim());
-
-            if (choice == 2)
-            {
-                QuitGame = true;
-                break;
-            }
+        while (!QuitGame) 
+        { 
 
             Console.WriteLine("\nWhere would you like to go?");
-            Console.WriteLine($"You are at: {player.CurrentLocation}. From here you can go:");
-            home.DisplayAdjacentLocations();
+            Console.WriteLine($"You are at: {player.CurrentLocation}.");
+            home.DisplayDetails();
 
             string direction;
+
+            do
+            {
+                direction = Console.ReadLine().ToUpper().Trim();
+                townSquare = home.ChangeLocation(player, direction);
+            } while (townSquare == null);
+                
+            Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+            townSquare.DisplayDetails();
+
             Location newLocation;
 
             do
             {
                 direction = Console.ReadLine().ToUpper().Trim();
-                newLocation = home.ChangeLocation(player, direction);
+                newLocation = townSquare.ChangeLocation(player, direction);
             } while (newLocation == null);
+
+            Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+      
+
+            if (player.CurrentLocation == "Farmhouse")
+            {
+                farmhouse.DisplayDetails();
+            }
         }
     }
 }
+
+
+

@@ -32,9 +32,9 @@ namespace mini_game_project
         public void DisplayDetails()
         {
             // Method to display details of the location.
-            Console.WriteLine($"Location ID: {ID}");
+            Console.WriteLine($"\nLocation ID: {ID}");
             Console.WriteLine($"Name: {Name}");
-            Console.WriteLine($"Description: {Description}");
+            Console.WriteLine($"Description: {Description}\n");
 
             if (QuestAvailableHere != null)
             {
@@ -54,7 +54,7 @@ namespace mini_game_project
                 Console.WriteLine("No monster living here.");
             }
 
-            Console.WriteLine("Adjacent Locations:");
+            Console.WriteLine("\nAdjacent Locations:");
             DisplayAdjacentLocations();
         }
 
@@ -77,6 +77,39 @@ namespace mini_game_project
                     if (LocationToNorth != null)
                     {
                         newLocation = LocationToNorth;
+                        player.CurrentLocation = newLocation.Name;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid direction. Please choose a valid direction.");
+                    }
+                    break;
+                case "S":
+                    if (LocationToSouth != null)
+                    {
+                        newLocation = LocationToSouth;
+                        player.CurrentLocation = newLocation.Name;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid direction. Please choose a valid direction.");
+                    }
+                    break;
+                case "E":
+                    if (LocationToEast != null)
+                    {
+                        newLocation = LocationToEast;
+                        player.CurrentLocation = newLocation.Name;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid direction. Please choose a valid direction.");
+                    }
+                    break;
+                case "W":
+                    if (LocationToWest != null)
+                    {
+                        newLocation = LocationToWest;
                         player.CurrentLocation = newLocation.Name;
                     }
                     else
