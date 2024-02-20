@@ -179,7 +179,7 @@ namespace mini_game_project
         {
             foreach (Weapon item in Weapons)
             {
-                if (item.ID == id)
+                if (item.Id == id)
                 {
                     return item;
                 }

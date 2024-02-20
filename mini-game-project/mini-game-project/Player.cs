@@ -31,16 +31,8 @@ class Player
     }
     public int attack()
     {
+        return 0;
         //Implementing weapon (weapon damage stats and implement attack logic here)
         //it returns amount of the damage made
-    }
-}
-
-class Test
-{
-    static void Main()
-    {
-        Player player = new Player("testplayer", 18, "Male");
-        player.Confirm();
     }
 }
