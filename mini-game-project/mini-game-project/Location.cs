@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,12 +59,38 @@ namespace mini_game_project
         }
 
         // Method to show available locations.
-        private void DisplayAdjacentLocations()
+        public void DisplayAdjacentLocations()
         {
             Console.WriteLine($"To North: {(LocationToNorth != null ? LocationToNorth.Name : "None")}");
             Console.WriteLine($"To East: {(LocationToEast != null ? LocationToEast.Name : "None")}");
             Console.WriteLine($"To South: {(LocationToSouth != null ? LocationToSouth.Name : "None")}");
             Console.WriteLine($"To West: {(LocationToWest != null ? LocationToWest.Name : "None")}");
+        }
+
+        public Location ChangeLocation(Player player, string direction)
+        {
+            Location newLocation = null;
+
+            switch (direction)
+            {
+                case "N":
+                    if (LocationToNorth != null)
+                    {
+                        newLocation = LocationToNorth;
+                        player.CurrentLocation = newLocation.Name;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid direction. Please choose a valid direction.");
+                    }
+                    break;
+                // Add cases for other directions (S, E, W) if needed
+                default:
+                    Console.WriteLine("Invalid direction. Please choose a valid direction.");
+                    break;
+            }
+
+            return newLocation;
         }
     }
 }
