@@ -1,3 +1,5 @@
+using mini_game_project;
+
 using System;
 class Player
 {
@@ -29,10 +31,18 @@ class Player
         //Speler een mogelijkheid geven om alles te kunnen lezen en bevestigen
         //Als iets niet klopt kunnen ze altijd "n" typen dan kunnen ze alles opnieuw typen
     }
-    public int attack()
+
+    public int Attack()
     {
-        return 0;
-        //Implementing weapon (weapon damage stats and implement attack logic here)
-        //it returns amount of the damage made
+        // Assuming you have a Weapon object representing the player's equipped weapon
+        Weapon equippedWeapon = World.WeaponByID(World.WEAPON_ID_RUSTY_SWORD); // Change this based on your game logic
+
+        // Simulating an attack using the weapon's damage
+        int damage = equippedWeapon.Damage;
+
+        // You can add more complex logic here if needed
+
+        return damage;
     }
+
 }

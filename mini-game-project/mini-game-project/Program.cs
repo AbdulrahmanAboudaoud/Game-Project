@@ -45,7 +45,8 @@ class Program
 
         Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
 
-        // After the player arrives at the farmhouse in Program.cs
+
+        // Call the StartFarmersFieldMiniGame method here, after player arrives at the farmhouse
         if (player.CurrentLocation == "Farmhouse")
         {
             Location nextLocation = farmhouse.StartFarmersFieldQuest(player);
@@ -57,10 +58,70 @@ class Program
                 Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
 
                 // Start the mini-game or any other logic related to the quest
-                //StartFarmersFieldMiniGame(player);
+                StartFarmersFieldMiniGame(player);
             }
         }
 
 
+
+    }
+
+    public static void StartFarmersFieldMiniGame(Player player)
+    {
+        Console.WriteLine("\nYou enter the Farmer's field. Snakes are lurking in the tall grass!");
+        Console.WriteLine("Your goal is to kill three snakes to complete the quest.\n");
+
+        int snakesKilled = 0;
+
+        while (snakesKilled < 3)
+        {
+            Console.WriteLine($"Snakes killed: {snakesKilled}/3");
+
+            Console.WriteLine("Choose your action:");
+            Console.WriteLine("(A)ttack");
+            Console.WriteLine("(R)un");
+
+            string action = Console.ReadLine().ToUpper().Trim();
+
+            if (action == "A")
+            {
+                int damage = player.Attack();
+                Monster snake = World.MonsterByID(World.MONSTER_ID_SNAKE);
+                snake.CurrentHitPoints -= damage;
+
+                Console.WriteLine($"You dealt {damage} damage to the snake!");
+
+                if (snake.CurrentHitPoints <= 0)
+                {
+                    Console.WriteLine("You killed the snake!");
+                    snakesKilled++;
+                    snake.CurrentHitPoints = snake.MaximumHitPoints; // Reset snake's HP
+                }
+            }
+            else if (action == "R")
+            {
+                Console.WriteLine("You run away from the snakes.");
+                // You might want to handle consequences or exit the mini-game here
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
+            }
+        }
+
+        if (snakesKilled == 3)
+        {
+            Console.WriteLine("\nYou successfully cleared the farmer's field of snakes!");
+            // Update the player's quest or add logic related to completing the quest
+            player.CurrentLocation = "Farmhouse"; // Return the player to the farmhouse after completing the quest
+        }
+        else
+        {
+            Console.WriteLine("\nYou decide to leave the farmer's field.");
+            // You might want to handle consequences or exit the mini-game here
+        }
     }
 }
+
+
