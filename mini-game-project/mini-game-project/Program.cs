@@ -20,42 +20,39 @@ class Program
         Console.WriteLine("you to venture into various locations, confront menacing monsters, and fulfill quests");
         Console.WriteLine("to rid the town of this arachnid menace.\n");
 
-        while (!QuitGame) 
-        { 
+        Console.WriteLine("\nWhere would you like to go?");
+        Console.WriteLine($"You are at: {player.CurrentLocation}.");
+        home.DisplayDetails();
 
-            Console.WriteLine("\nWhere would you like to go?");
-            Console.WriteLine($"You are at: {player.CurrentLocation}.");
-            home.DisplayDetails();
+        string direction;
 
-            string direction;
+        do
+        {
+            direction = Console.ReadLine().ToUpper().Trim();
+            townSquare = home.ChangeLocation(player, direction);
+        } while (townSquare == null);
 
-            do
-            {
-                direction = Console.ReadLine().ToUpper().Trim();
-                townSquare = home.ChangeLocation(player, direction);
-            } while (townSquare == null);
-                
-            Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
-            townSquare.DisplayDetails();
+        Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+        townSquare.DisplayDetails();
 
-            Location newLocation;
+        Location newLocation;
 
-            do
-            {
-                direction = Console.ReadLine().ToUpper().Trim();
-                newLocation = townSquare.ChangeLocation(player, direction);
-            } while (newLocation == null);
+        do
+        {
+            direction = Console.ReadLine().ToUpper().Trim();
+            newLocation = townSquare.ChangeLocation(player, direction);
+        } while (newLocation == null);
 
-            Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
-      
+        Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
 
-            if (player.CurrentLocation == "Farmhouse")
-            {
-                farmhouse.DisplayDetails();
-            }
+        if (player.CurrentLocation == "Farmhouse")
+        {
+
+            Console.WriteLine("\nA farmer approaches you and says:");
+            Console.WriteLine("Farmer: Welcome, traveler! We have a problem with snakes in our field.");
+            Console.WriteLine("Would you be willing to help us clear the field?");
+
+
         }
     }
 }
-
-
-
