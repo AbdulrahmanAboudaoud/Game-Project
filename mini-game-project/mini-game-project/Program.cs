@@ -45,14 +45,22 @@ class Program
 
         Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
 
+        // After the player arrives at the farmhouse in Program.cs
         if (player.CurrentLocation == "Farmhouse")
         {
+            Location nextLocation = farmhouse.StartFarmersFieldQuest(player);
 
-            Console.WriteLine("\nA farmer approaches you and says:");
-            Console.WriteLine("Farmer: Welcome, traveler! We have a problem with snakes in our field.");
-            Console.WriteLine("Would you be willing to help us clear the field?");
+            // Check if the next location is different, indicating a quest was started
+            if (nextLocation != farmhouse)
+            {
+                player.CurrentLocation = nextLocation.Name; // Update the player's current location
+                Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
 
-
+                // Start the mini-game or any other logic related to the quest
+                //StartFarmersFieldMiniGame(player);
+            }
         }
+
+
     }
 }

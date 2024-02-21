@@ -58,6 +58,45 @@ namespace mini_game_project
             DisplayAdjacentLocations();
         }
 
+        // Modify the StartFarmersFieldQuest method to return the next location
+        public Location StartFarmersFieldQuest(Player player)
+        {
+            if (this.ID == World.LOCATION_ID_FARMHOUSE)
+            {
+                Console.WriteLine("\nA farmer approaches you and says:");
+                Console.WriteLine("Farmer: Welcome, traveler! We have a problem with snakes in our field.");
+                Console.WriteLine("Would you be willing to help us clear the field?");
+
+                Console.Write("(Y)es or (N)o: ");
+                string response = Console.ReadLine().ToUpper().Trim();
+
+                if (response == "Y")
+                {
+                    Console.WriteLine("\nFarmer: Thank you, kind adventurer! The field is to the west. Watch out for those snakes!");
+
+                    // You might want to update the player's quest or add logic related to the quest here.
+                    return World.LocationByID(World.LOCATION_ID_FARM_FIELD); // Return the next location (Farmer's field).
+                }
+                else if (response == "N")
+                {
+                    Console.WriteLine("\nFarmer: Oh, that's unfortunate. If you change your mind, we'll be here.");
+                    // You might want to handle the case where the player declines the quest.
+                    return this; // Stay in the farmhouse if the player declines the quest.
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please choose (Y)es or (N)o.");
+                    return this; // Stay in the farmhouse if there's an invalid input.
+                }
+            }
+            else
+            {
+                Console.WriteLine("There's nothing special here.");
+                return this; // Stay in the current location if it's not the farmhouse.
+            }
+        }
+
+
         // Method to show available locations.
         public void DisplayAdjacentLocations()
         {
