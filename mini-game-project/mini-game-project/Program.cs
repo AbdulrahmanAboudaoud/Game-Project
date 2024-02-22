@@ -11,6 +11,7 @@ class Program
         Location home = World.LocationByID(World.LOCATION_ID_HOME);
         Location townSquare = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
         Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
+        Location AlchemistGarden = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
         player.CurrentLocation = home.Name;
 
         Console.WriteLine("Welcome to the Giant Spider Adventure!\n");
@@ -60,6 +61,11 @@ class Program
                 // Start the mini-game or any other logic related to the quest
                 StartFarmersFieldMiniGame(player);
             }
+        }
+        else if (player.CurrentLocation == "Alchemist's hut")
+        {
+            AlchemistGarden.StartAlchemistQuest(player);
+            StartAlchemistGardenMiniGame(player);
         }
 
 
@@ -122,6 +128,61 @@ class Program
             // You might want to handle consequences or exit the mini-game here
         }
     }
+
+    public static void StartAlchemistGardenMiniGame(Player player)
+    {
+        Console.WriteLine("\nYou enter the Alchemist's garden. Rats are scurrying amidst the herb beds, hidden among the foliage");
+        Console.WriteLine("Your need to kill three rats to complete this mission.\n");
+
+        int ratsKilled = 0;
+
+        while (ratsKilled < 3)
+        {
+            Console.WriteLine($"Rats killed: {ratsKilled}/3");
+
+            Console.WriteLine("Choose your action:");
+            Console.WriteLine("(A)ttack");
+            Console.WriteLine("(R)un");
+
+            string action = Console.ReadLine().ToUpper().Trim();
+
+            if (action == "A")
+            {
+                int damage = player.Attack();
+                Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
+                rat.CurrentHitPoints -= damage;
+
+                Console.WriteLine($"You dealt {damage} damage to the Rat!");
+
+                if (rat.CurrentHitPoints <= 0)
+                {
+                    Console.WriteLine("You killed the Rat!");
+                    ratsKilled++;
+                    rat.CurrentHitPoints = rat.MaximumHitPoints;
+                }
+            }
+            else if (action == "R")
+            {
+                Console.WriteLine("You run away from the Rats. what a coward !");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
+            }
+        }
+
+        if (ratsKilled == 3)
+        {
+            Console.WriteLine("\nYou successfully cleared the alchemist’s garden from all rats!");
+            player.CurrentLocation = "Alchemist's hut"; 
+        }
+        else
+        {
+            Console.WriteLine("\nYou decide to leave alchemist’s garden.");
+        }
+    }
 }
+
 
 

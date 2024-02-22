@@ -95,7 +95,41 @@ namespace mini_game_project
                 return this; // Stay in the current location if it's not the farmhouse.
             }
         }
+        
+        public Location StartAlchemistQuest(Player player)
+        {
+            if(ID == World.LOCATION_ID_ALCHEMISTS_GARDEN)
+            {
+                Console.WriteLine("\nAn Alchemist approaches you and says:");
+                Console.WriteLine("Hail, traveler! Might I have a moment of thy time? I am in dire need of aid.");
+                Console.WriteLine("Those cursed rodents art nibbling on mine own precious herbs! 'Tis a vexing nuisance that dost threaten mine livelihood");
+                Console.WriteLine("Wouldst thou be willing to venture forth and rid my garden of these troublesome pests? I would be forever indebted to thee for thy bravery");
+                Console.WriteLine("(Y)es or (N)o");
+            
+                string response = Console.ReadLine().ToUpper().Trim();
 
+                if (response == "Y")
+                {
+                    Console.WriteLine("\nAlchemist: Thank you, kind adventurer! The garden is to the north. Keep an eye on the rats!");
+                    return World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
+                }
+                else if (response == "N")
+                {
+                    Console.WriteLine("\nAlchemist: Oh, that's unfortunate. If you change your mind, Your help will always be appreciated.");
+                    return this; 
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please choose (Y)es or (N)o.");
+                    return this;
+                }
+            }
+            else
+            {
+                Console.WriteLine("There's nothing special here.");
+                return this;
+            }
+        }
 
         // Method to show available locations.
         public void DisplayAdjacentLocations()
