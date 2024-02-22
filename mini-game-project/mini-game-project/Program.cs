@@ -67,9 +67,19 @@ class Program
             AlchemistGarden.StartAlchemistQuest(player);
             StartAlchemistGardenMiniGame(player);
         }
-
-
-
+        else if (player.CurrentLocation == "Guard post")
+        {
+            if (World.Inventory.Contains("Elixir Essence") && World.Inventory.Contains("Harvest Hoard"))
+            {
+                Console.WriteLine("You are on a mission ahead from winning this game!");
+                Console.WriteLine("The fate of the town rests in your hands, and your bravery and cunning will determine its future.");
+                Console.WriteLine("Press on with courage, for you are the town's last hope against the encroaching darkness.");
+            }
+            else
+            {
+                Console.WriteLine("Access denied to Guard post. You need to complete the quests (Alchemist's garden & Farmers field) first.");
+            }
+        }
     }
 
     public static void StartFarmersFieldMiniGame(Player player)
@@ -119,6 +129,7 @@ class Program
         if (snakesKilled == 3)
         {
             Console.WriteLine("\nYou successfully cleared the farmer's field of snakes!");
+            World.Inventory.Add("Elixir Harvest Hoard");
             // Update the player's quest or add logic related to completing the quest
             player.CurrentLocation = "Farmhouse"; // Return the player to the farmhouse after completing the quest
         }
@@ -175,7 +186,8 @@ class Program
         if (ratsKilled == 3)
         {
             Console.WriteLine("\nYou successfully cleared the alchemist’s garden from all rats!");
-            player.CurrentLocation = "Alchemist's hut"; 
+            player.CurrentLocation = "Alchemist's hut";
+            World.Inventory.Add("Elixir Essence");
         }
         else
         {

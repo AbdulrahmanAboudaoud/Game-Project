@@ -9,12 +9,12 @@ namespace mini_game_project
     internal class World
     {
 
-
         public static readonly List<Weapon> Weapons = new List<Weapon>();
         public static readonly List<Monster> Monsters = new List<Monster>();
         public static readonly List<Quest> Quests = new List<Quest>();
         public static readonly List<Location> Locations = new List<Location>();
         public static readonly Random RandomGenerator = new Random();
+        public static readonly List<string> Inventory = new List<string>();
 
         public const int WEAPON_ID_RUSTY_SWORD = 1;
         public const int WEAPON_ID_CLUB = 2;
@@ -44,7 +44,6 @@ namespace mini_game_project
             PopulateQuests();
             PopulateLocations();
         }
-
 
         public static void PopulateWeapons()
         {
