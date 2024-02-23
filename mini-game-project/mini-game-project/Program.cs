@@ -200,7 +200,7 @@ class Program
     {
         Console.WriteLine("\nYou enter the Spiders's Nest to collect Silk.");
         Console.WriteLine("Your need to kill and collect 3 spider silks to complete this quest.\n");
-        Console.WriteLine("There is only 1 in 2 chance of silk dropping from Spider!")
+        Console.WriteLine("There is only 1 in 2 chance of silk dropping from Spider!");
         int silkCollected = 0;
         while (silkCollected < 3)
         {
