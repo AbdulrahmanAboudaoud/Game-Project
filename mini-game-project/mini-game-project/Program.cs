@@ -248,12 +248,8 @@ class Program
         if (silkCollected == 3)
         {
             Console.WriteLine("\nYou successfully collected all necessary silk! Well Done!");
-            player.CurrentLocation = "Alchemist's hut";
-            World.Inventory.Add("Elixir Essence");
-        }
-        else
-        {
-            Console.WriteLine("\nYou decide to leave alchemist’s garden.");
+            player.CurrentLocation = "Spider forest";
+            World.Inventory.Add("Silk");
         }
     }
 }
