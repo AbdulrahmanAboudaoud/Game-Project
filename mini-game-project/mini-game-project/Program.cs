@@ -7,6 +7,7 @@ class Program
 
     public static void Main()
     {
+        Random random = new Random();
         Player player = new Player("John Doe", 25, "Male", 100, "Town Square", "Rusty Sword", 100);
         Location home = World.LocationByID(World.LOCATION_ID_HOME);
         Location townSquare = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
@@ -74,6 +75,7 @@ class Program
                 Console.WriteLine("You are on a mission ahead from winning this game!");
                 Console.WriteLine("The fate of the town rests in your hands, and your bravery and cunning will determine its future.");
                 Console.WriteLine("Press on with courage, for you are the town's last hope against the encroaching darkness.");
+                StartClearSpidersForest(player);
             }
             else
             {
@@ -186,6 +188,66 @@ class Program
         if (ratsKilled == 3)
         {
             Console.WriteLine("\nYou successfully cleared the alchemist’s garden from all rats!");
+            player.CurrentLocation = "Alchemist's hut";
+            World.Inventory.Add("Elixir Essence");
+        }
+        else
+        {
+            Console.WriteLine("\nYou decide to leave alchemist’s garden.");
+        }
+    }
+    public static void StartClearSpidersForest(Player player)
+    {
+        Console.WriteLine("\nYou enter the Spiders's Nest to collect Silk.");
+        Console.WriteLine("Your need to kill and collect 3 spider silks to complete this quest.\n");
+        Console.WriteLine("There is only 1 in 2 chance of silk dropping from Spider!")
+        int silkCollected = 0;
+        while (silkCollected < 3)
+        {
+            Console.WriteLine($"Silk collected: {silkCollected}/3");
+            Console.WriteLine("Choose your action:");
+            Console.WriteLine("(A)ttack");
+            Console.WriteLine("(R)un");
+            string action = Console.ReadLine().ToUpper().Trim();
+
+            if (action == "A")
+            {
+                int damage = player.Attack();
+                Monster spider = World.MonsterByID(World.MONSTER_ID_GIANT_SPIDER);
+                spider.CurrentHitPoints -= damage;
+
+                Console.WriteLine($"You dealt {damage} damage to the Spider!");
+
+                if (spider.CurrentHitPoints <= 0)
+                {
+                    Console.WriteLine("You killed the Spider!");
+                    double randomdroprate = random.NextDouble();
+                    double dropChance = 0.50;
+                    bool itdropped = randomdroprate <= dropChance;
+                    if (itdropped) 
+                    {
+                        silkCollected++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("That one didn't have any Silk! Try again!");
+                    }
+                }
+            }
+            else if (action == "R")
+            {
+                Console.WriteLine("You coward you have been surrounded by Giant Spiders!! There is no way of running away now! GAME OVER!");
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
+            }
+        }
+
+        if (silkCollected == 3)
+        {
+            Console.WriteLine("\nYou successfully collected all necessary silk! Well Done!");
             player.CurrentLocation = "Alchemist's hut";
             World.Inventory.Add("Elixir Essence");
         }
