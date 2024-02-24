@@ -196,6 +196,9 @@ class Program
             Console.WriteLine("\nYou decide to leave alchemist’s garden.");
         }
     }
+
+    Random random = new Random();  // Add this line to create a Random instance
+
     public static void StartClearSpidersForest(Player player)
     {
         Console.WriteLine("\nYou enter the Spiders's Nest to collect Silk.");
