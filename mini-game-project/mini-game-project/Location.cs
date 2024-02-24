@@ -138,6 +138,7 @@ namespace mini_game_project
             Console.WriteLine($"To East: {(LocationToEast != null ? LocationToEast.Name : "None")}");
             Console.WriteLine($"To South: {(LocationToSouth != null ? LocationToSouth.Name : "None")}");
             Console.WriteLine($"To West: {(LocationToWest != null ? LocationToWest.Name : "None")}");
+            Console.WriteLine("To quit the game: Insert 'Q'");
         }
 
         public Location ChangeLocation(Player player, string direction)
@@ -191,6 +192,10 @@ namespace mini_game_project
                     }
                     break;
                 // Add cases for other directions (S, E, W) if needed
+                case "Q":
+                    Console.WriteLine("Game closed");
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("Invalid direction. Please choose a valid direction.");
                     break;

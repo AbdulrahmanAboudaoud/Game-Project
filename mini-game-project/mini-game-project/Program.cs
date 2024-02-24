@@ -31,6 +31,7 @@ class Program
 
         string direction;
 
+       
         do
         {
             direction = Console.ReadLine().ToUpper().Trim();
@@ -81,6 +82,7 @@ class Program
                     Console.WriteLine("You are on a mission ahead from winning this game!");
                     Console.WriteLine("The fate of the town rests in your hands, and your bravery and cunning will determine its future.");
                     Console.WriteLine("Press on with courage, for you are the town's last hope against the encroaching darkness.");
+                    FirstTwoQuestsCompleted = true;
                     StartClearSpidersForest(player);
                 }
                 else
@@ -89,7 +91,13 @@ class Program
                 }
             }
         }
-        
+
+        if (World.Inventory.Contains("Elixir Essence") && World.Inventory.Contains("Elixir Harvest Hoard") && World.Inventory.Contains("Silk"))
+        {
+            Console.WriteLine("\nYou have completed all the quests!\nCongratulations!");
+            Environment.Exit(0);
+        }
+
     }
 
     public static void StartFarmersFieldMiniGame(Player player)
@@ -264,7 +272,10 @@ class Program
             player.CurrentLocation = "Spider forest";
             World.Inventory.Add("Silk");
         }
+
+        
     }
+
 }
 
 
