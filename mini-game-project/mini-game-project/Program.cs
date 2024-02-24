@@ -1,5 +1,6 @@
 ﻿using mini_game_project;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 class Program
 {
@@ -26,6 +27,8 @@ class Program
         Console.WriteLine($"You are at: {player.CurrentLocation}.");
         home.DisplayDetails();
 
+        bool FirstTwoQuestsCompleted = false;
+
         string direction;
 
         do
@@ -39,49 +42,54 @@ class Program
 
         Location newLocation;
 
-        do
+        while (!FirstTwoQuestsCompleted)
         {
-            direction = Console.ReadLine().ToUpper().Trim();
-            newLocation = townSquare.ChangeLocation(player, direction);
-        } while (newLocation == null);
-
-        Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
-
-
-        // Call the StartFarmersFieldMiniGame method here, after player arrives at the farmhouse
-        if (player.CurrentLocation == "Farmhouse")
-        {
-            Location nextLocation = farmhouse.StartFarmersFieldQuest(player);
-
-            // Check if the next location is different, indicating a quest was started
-            if (nextLocation != farmhouse)
+            do
             {
-                player.CurrentLocation = nextLocation.Name; // Update the player's current location
-                Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+                direction = Console.ReadLine().ToUpper().Trim();
+                newLocation = townSquare.ChangeLocation(player, direction);
+            } while (newLocation == null);
 
-                // Start the mini-game or any other logic related to the quest
-                StartFarmersFieldMiniGame(player);
+
+            Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+
+
+            // Call the StartFarmersFieldMiniGame method here, after player arrives at the farmhouse
+            if (player.CurrentLocation == "Farmhouse")
+            {
+                Location nextLocation = farmhouse.StartFarmersFieldQuest(player);
+
+                // Check if the next location is different, indicating a quest was started
+                if (nextLocation != farmhouse)
+                {
+                    player.CurrentLocation = nextLocation.Name; // Update the player's current location
+                    Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+
+                    // Start the mini-game or any other logic related to the quest
+                    StartFarmersFieldMiniGame(player);
+                }
+            }
+            else if (player.CurrentLocation == "Alchemist's hut")
+            {
+                AlchemistGarden.StartAlchemistQuest(player);
+                StartAlchemistGardenMiniGame(player);
+            }
+            else if (player.CurrentLocation == "Guard post")
+            {
+                if (World.Inventory.Contains("Elixir Essence") && World.Inventory.Contains("Elixir Harvest Hoard"))
+                {
+                    Console.WriteLine("You are on a mission ahead from winning this game!");
+                    Console.WriteLine("The fate of the town rests in your hands, and your bravery and cunning will determine its future.");
+                    Console.WriteLine("Press on with courage, for you are the town's last hope against the encroaching darkness.");
+                    StartClearSpidersForest(player);
+                }
+                else
+                {
+                    Console.WriteLine("Access denied to Guard post. You need to complete the quests (Alchemist's garden & Farmers field) first.");
+                }
             }
         }
-        else if (player.CurrentLocation == "Alchemist's hut")
-        {
-            AlchemistGarden.StartAlchemistQuest(player);
-            StartAlchemistGardenMiniGame(player);
-        }
-        else if (player.CurrentLocation == "Guard post")
-        {
-            if (World.Inventory.Contains("Elixir Essence") && World.Inventory.Contains("Harvest Hoard"))
-            {
-                Console.WriteLine("You are on a mission ahead from winning this game!");
-                Console.WriteLine("The fate of the town rests in your hands, and your bravery and cunning will determine its future.");
-                Console.WriteLine("Press on with courage, for you are the town's last hope against the encroaching darkness.");
-                StartClearSpidersForest(player);
-            }
-            else
-            {
-                Console.WriteLine("Access denied to Guard post. You need to complete the quests (Alchemist's garden & Farmers field) first.");
-            }
-        }
+        
     }
 
     public static void StartFarmersFieldMiniGame(Player player)
@@ -131,9 +139,12 @@ class Program
         if (snakesKilled == 3)
         {
             Console.WriteLine("\nYou successfully cleared the farmer's field of snakes!");
+            Console.WriteLine("You have come back to the Town Square. Where would like to go?");
+
+
             World.Inventory.Add("Elixir Harvest Hoard");
             // Update the player's quest or add logic related to completing the quest
-            player.CurrentLocation = "Farmhouse"; // Return the player to the farmhouse after completing the quest
+            player.CurrentLocation = "Town Square"; // Return the player to the farmhouse after completing the quest
         }
         else
         {
@@ -197,10 +208,9 @@ class Program
         }
     }
 
-    Random random = new Random();  // Add this line to create a Random instance
-
     public static void StartClearSpidersForest(Player player)
     {
+        Random random = new Random();  // Add this line to create a Random instance
         Console.WriteLine("\nYou enter the Spiders's Nest to collect Silk.");
         Console.WriteLine("Your need to kill and collect 3 spider silks to complete this quest.\n");
         Console.WriteLine("There is only 1 in 2 chance of silk dropping from Spider!");
