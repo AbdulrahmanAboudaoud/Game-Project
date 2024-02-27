@@ -168,13 +168,13 @@ class Program
             if (snakesKilled == 3)
             {
                 Console.WriteLine("\nCongratulations! You successfully cleared the farmer's field of snakes!");
+                World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).Complete();
                 Console.WriteLine("You have come back to the Town Square. Where would you like to go?");
 
                 World.Inventory.Add("Elixir Harvest Hoard");
                 // Update the player's quest or add logic related to completing the quest
 
                 player.CurrentLocation = "Town Square";
-                World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).Complete();
                 break; // Break out of the outer loop
             }
             else
