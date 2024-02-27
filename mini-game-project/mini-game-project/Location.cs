@@ -65,6 +65,7 @@ namespace mini_game_project
             if (World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).IsCompleted)
             {
                 Console.WriteLine("You have already completed this quest.");
+                Console.WriteLine($"You've been returned to Town Sqaure.");
                 return this; // Return the player to their current location
             }
 
