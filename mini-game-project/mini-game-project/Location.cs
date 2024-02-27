@@ -104,8 +104,15 @@ namespace mini_game_project
             }
         }
 
+
         public Location StartAlchemistQuest(Player player)
         {
+            if (World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN).IsCompleted)
+            {
+                Console.WriteLine("You have already completed this quest.");
+                return World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
+            }
+
             if (ID == World.LOCATION_ID_ALCHEMISTS_GARDEN)
             {
                 Console.ForegroundColor = ConsoleColor.White;

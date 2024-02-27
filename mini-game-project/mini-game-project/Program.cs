@@ -266,6 +266,7 @@ class Program
                 Console.WriteLine("\nYou successfully cleared the Alchemist's garden of all rats!");
                 player.CurrentLocation = "Alchemist's hut";
                 World.Inventory.Add("Elixir Essence");
+                World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN).Complete();
                 break; // Break out of the outer loop if the player completes the quest
             }
             else
