@@ -53,7 +53,7 @@ namespace mini_game_project
 
         public static void PopulateMonsters()
         {
-            Monster rat = new Monster(MONSTER_ID_RAT, "rat", 1, 3, 3);
+            Monster rat = new Monster(MONSTER_ID_RAT, "rat", 5, 5, 10);
 
 
             Monster snake = new Monster(MONSTER_ID_SNAKE, "snake", 10, 7, 7);

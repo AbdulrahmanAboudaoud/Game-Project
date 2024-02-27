@@ -15,14 +15,14 @@ class Program
         Location farmhouse = World.LocationByID(World.LOCATION_ID_FARMHOUSE);
         Location AlchemistGarden = World.LocationByID(World.LOCATION_ID_ALCHEMISTS_GARDEN);
         player.CurrentLocation = home.Name;
-
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine("Welcome to the Giant Spider Adventure!\n");
         Console.WriteLine("In the serene town you call home, a looming threat from giant spiders casts a shadow,");
         Console.WriteLine("prompting you to embark on a courageous quest to safeguard your fellow villagers.");
         Console.WriteLine("Whispers suggest that the spiders have nested in a foreboding dark forest, compelling");
         Console.WriteLine("you to venture into various locations, confront menacing monsters, and fulfill quests");
         Console.WriteLine("to rid the town of this arachnid menace.\n");
-
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\nWhere would you like to go?");
         Console.WriteLine($"You are at: {player.CurrentLocation}.");
         home.DisplayDetails();
@@ -72,8 +72,17 @@ class Program
             }
             else if (player.CurrentLocation == "Alchemist's hut")
             {
-                AlchemistGarden.StartAlchemistQuest(player);
-                StartAlchemistGardenMiniGame(player);
+                Location nextLocation = AlchemistGarden.StartAlchemistQuest(player);
+
+                // Check if the next location is not null, indicating the player declined the quest
+                if (nextLocation == AlchemistGarden)
+                {
+                    player.CurrentLocation = nextLocation.Name; // Update the player's current location
+                    Console.WriteLine($"\nYou have arrived at: {player.CurrentLocation}");
+
+                    // Start the mini-game or any other logic related to the quest
+                    StartAlchemistGardenMiniGame(player);
+                }
             }
             else if (player.CurrentLocation == "Guard post")
             {
@@ -103,116 +112,175 @@ class Program
     public static void StartFarmersFieldMiniGame(Player player)
     {
         Console.WriteLine("\nYou enter the Farmer's field. Snakes are lurking in the tall grass!");
-        Console.WriteLine("Your goal is to kill three snakes to complete the quest.\n");
+        Console.WriteLine("Your goal is to kill three snakes within 5 seconds to complete the quest.\n");
 
-        int snakesKilled = 0;
+        int timeLimitInSeconds = 5; // Time limit for completing the quest
 
-        while (snakesKilled < 3)
+        while (true) // Loop until the player completes the quest or decides to leave
         {
-            Console.WriteLine($"Snakes killed: {snakesKilled}/3");
+            int snakesKilled = 0;
+            DateTime startTime = DateTime.Now;
 
-            Console.WriteLine("Choose your action:");
-            Console.WriteLine("(A)ttack");
-            Console.WriteLine("(R)un");
-
-            string action = Console.ReadLine().ToUpper().Trim();
-
-            if (action == "A")
+            while (snakesKilled < 3)
             {
-                int damage = player.Attack();
-                Monster snake = World.MonsterByID(World.MONSTER_ID_SNAKE);
-                snake.CurrentHitPoints -= damage;
-
-                Console.WriteLine($"You dealt {damage} damage to the snake!");
-
-                if (snake.CurrentHitPoints <= 0)
+                // Check if time limit has been exceeded
+                if ((DateTime.Now - startTime).TotalSeconds >= timeLimitInSeconds)
                 {
-                    Console.WriteLine("You killed the snake!");
-                    snakesKilled++;
-                    snake.CurrentHitPoints = snake.MaximumHitPoints; // Reset snake's HP
+                    Console.WriteLine("\nTime's up! You failed to complete the quest in time.");
+                    break; // Break out of the inner loop
+                }
+
+                Console.WriteLine($"Snakes killed: {snakesKilled}/3");
+                Console.WriteLine($"Time remaining: {timeLimitInSeconds - (int)(DateTime.Now - startTime).TotalSeconds} seconds");
+
+                Console.WriteLine("Choose your action:");
+                Console.WriteLine("(A)ttack");
+                Console.WriteLine("(R)un");
+
+                string action = Console.ReadLine().ToUpper().Trim();
+
+                if (action == "A")
+                {
+                    int damage = player.Attack();
+                    Monster snake = World.MonsterByID(World.MONSTER_ID_SNAKE);
+                    snake.CurrentHitPoints -= damage;
+
+                    Console.WriteLine($"You dealt {damage} damage to the snake!");
+
+                    if (snake.CurrentHitPoints <= 0)
+                    {
+                        Console.WriteLine("You killed the snake!");
+                        snakesKilled++;
+                        snake.CurrentHitPoints = snake.MaximumHitPoints; // Reset snake's HP
+                    }
+                }
+                else if (action == "R")
+                {
+                    Console.WriteLine("You run away from the snakes.");
+                    break; // Break out of the inner loop
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
                 }
             }
-            else if (action == "R")
+
+            if (snakesKilled == 3)
             {
-                Console.WriteLine("You run away from the snakes.");
-                // You might want to handle consequences or exit the mini-game here
-                break;
+                Console.WriteLine("\nCongratulations! You successfully cleared the farmer's field of snakes!");
+                Console.WriteLine("You have come back to the Town Square. Where would you like to go?");
+
+                World.Inventory.Add("Elixir Harvest Hoard");
+                // Update the player's quest or add logic related to completing the quest
+                player.CurrentLocation = "Town Square";
+                break; // Break out of the outer loop
             }
             else
             {
-                Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
+                Console.WriteLine("Do you want to retry the quest? (Y/N)");
+
+                string retry = Console.ReadLine().ToUpper().Trim();
+                if (retry != "Y")
+                {
+                    break; // Break out of the outer loop if the player chooses not to retry
+                }
             }
-        }
-
-        if (snakesKilled == 3)
-        {
-            Console.WriteLine("\nYou successfully cleared the farmer's field of snakes!");
-            Console.WriteLine("You have come back to the Town Square. Where would like to go?");
-
-
-            World.Inventory.Add("Elixir Harvest Hoard");
-            // Update the player's quest or add logic related to completing the quest
-            player.CurrentLocation = "Town Square"; // Return the player to the farmhouse after completing the quest
-        }
-        else
-        {
-            Console.WriteLine("\nYou decide to leave the farmer's field.");
-            // You might want to handle consequences or exit the mini-game here
         }
     }
 
+
     public static void StartAlchemistGardenMiniGame(Player player)
     {
-        Console.WriteLine("\nYou enter the Alchemist's garden. Rats are scurrying amidst the herb beds, hidden among the foliage");
-        Console.WriteLine("Your need to kill three rats to complete this mission.\n");
+        Console.WriteLine("\nYou enter the Alchemist's garden. Rats are scurrying amidst the herb beds, hidden among the foliage.");
+        Console.WriteLine("Your need to kill three rats within 5 turns to complete this mission.\n");
 
-        int ratsKilled = 0;
-
-        while (ratsKilled < 3)
+        while (true) // Loop until the player completes the quest or decides not to retry
         {
-            Console.WriteLine($"Rats killed: {ratsKilled}/3");
+            int ratsKilled = 0;
+            int turnsRemaining = 6; // Number of turns allowed to complete the quest
 
-            Console.WriteLine("Choose your action:");
-            Console.WriteLine("(A)ttack");
-            Console.WriteLine("(R)un");
-
-            string action = Console.ReadLine().ToUpper().Trim();
-
-            if (action == "A")
+            while (ratsKilled < 3 && turnsRemaining > 0)
             {
-                int damage = player.Attack();
-                Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
-                rat.CurrentHitPoints -= damage;
+                Console.WriteLine($"Rats killed: {ratsKilled}/3");
+                Console.WriteLine($"Turns remaining: {turnsRemaining}");
 
-                Console.WriteLine($"You dealt {damage} damage to the Rat!");
+                Console.WriteLine("Choose your action:");
+                Console.WriteLine("(A)ttack");
+                Console.WriteLine("(R)un");
 
-                if (rat.CurrentHitPoints <= 0)
+                string action = Console.ReadLine().ToUpper().Trim();
+
+                if (action == "A")
                 {
-                    Console.WriteLine("You killed the Rat!");
-                    ratsKilled++;
-                    rat.CurrentHitPoints = rat.MaximumHitPoints;
+                    int damage = player.Attack();
+                    Monster rat = World.MonsterByID(World.MONSTER_ID_RAT);
+                    rat.CurrentHitPoints -= damage;
+
+                    Console.WriteLine($"You dealt {damage} damage to the Rat!");
+
+                    if (rat.CurrentHitPoints <= 0)
+                    {
+                        Console.WriteLine("You killed the Rat!");
+                        ratsKilled++;
+                        rat.CurrentHitPoints = rat.MaximumHitPoints; // Reset rat's HP
+                    }
                 }
+                else if (action == "R")
+                {
+                    Console.WriteLine("You run away from the Rats. What a coward!");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
+                }
+
+                // Monster attacks back
+                if (ratsKilled < 3)
+                {
+                    Console.WriteLine("The Rats bite back!");
+                    int damageTaken = World.RandomGenerator.Next(15, 20); // Random damage between 3 to 6
+                    player.CurrentHitPoints -= damageTaken;
+                    Console.WriteLine($"You took {damageTaken} damage.");
+
+                    if (player.CurrentHitPoints > 0)
+                    {
+                        Console.WriteLine($"You have {player.CurrentHitPoints} HP left.");
+
+                    }
+
+                    else if (player.CurrentHitPoints <= 0)
+                    {
+                        Console.WriteLine("You have been defeated!");
+                        break; // Break out of the inner loop if the player dies
+                    }
+                }
+
+                turnsRemaining--; // Decrease the number of turns remaining
             }
-            else if (action == "R")
+
+            if (ratsKilled == 3)
             {
-                Console.WriteLine("You run away from the Rats. what a coward !");
-                break;
+                Console.WriteLine("\nYou successfully cleared the Alchemist's garden of all rats!");
+                player.CurrentLocation = "Alchemist's hut";
+                World.Inventory.Add("Elixir Essence");
+                break; // Break out of the outer loop if the player completes the quest
             }
             else
             {
-                Console.WriteLine("Invalid input. Please choose (A)ttack or (R)un.");
-            }
-        }
+                Console.WriteLine("\nYou failed to clear the Alchemist's garden of rats in time.");
 
-        if (ratsKilled == 3)
-        {
-            Console.WriteLine("\nYou successfully cleared the alchemist’s garden from all rats!");
-            player.CurrentLocation = "Alchemist's hut";
-            World.Inventory.Add("Elixir Essence");
-        }
-        else
-        {
-            Console.WriteLine("\nYou decide to leave alchemist’s garden.");
+                Console.WriteLine("Do you want to retry the quest? (Y/N)");
+                string retry = Console.ReadLine().ToUpper().Trim();
+                if (retry != "Y")
+                {
+                    break; // Break out of the outer loop if the player chooses not to retry
+                }
+                else
+                {
+                    player.CurrentHitPoints = 100;
+                }
+            }
         }
     }
 
