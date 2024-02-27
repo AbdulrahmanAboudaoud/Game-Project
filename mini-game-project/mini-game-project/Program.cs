@@ -172,7 +172,9 @@ class Program
 
                 World.Inventory.Add("Elixir Harvest Hoard");
                 // Update the player's quest or add logic related to completing the quest
+
                 player.CurrentLocation = "Town Square";
+                World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).Complete();
                 break; // Break out of the outer loop
             }
             else
@@ -345,6 +347,3 @@ class Program
     }
 
 }
-
-
-

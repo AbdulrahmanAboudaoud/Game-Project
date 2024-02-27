@@ -61,8 +61,16 @@ namespace mini_game_project
         // Modify the StartFarmersFieldQuest method to return the next location
         public Location StartFarmersFieldQuest(Player player)
         {
+            // Check if the quest has already been completed
+            if (World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).IsCompleted)
+            {
+                Console.WriteLine("You have already completed this quest.");
+                return this; // Return the player to their current location
+            }
+
             if (this.ID == World.LOCATION_ID_FARMHOUSE)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nA farmer approaches you and says:");
                 Console.WriteLine("Farmer: Welcome, traveler! We have a problem with snakes in our field.");
                 Console.WriteLine("Would you be willing to help us clear the field?");
@@ -95,17 +103,18 @@ namespace mini_game_project
                 return this; // Stay in the current location if it's not the farmhouse.
             }
         }
-        
+
         public Location StartAlchemistQuest(Player player)
         {
-            if(ID == World.LOCATION_ID_ALCHEMISTS_GARDEN)
+            if (ID == World.LOCATION_ID_ALCHEMISTS_GARDEN)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nAn Alchemist approaches you and says:");
                 Console.WriteLine("Hail, traveler! Might I have a moment of thy time? I am in dire need of aid.");
                 Console.WriteLine("Those cursed rodents art nibbling on mine own precious herbs! 'Tis a vexing nuisance that dost threaten mine livelihood");
                 Console.WriteLine("Wouldst thou be willing to venture forth and rid my garden of these troublesome pests? I would be forever indebted to thee for thy bravery");
                 Console.WriteLine("(Y)es or (N)o");
-            
+
                 string response = Console.ReadLine().ToUpper().Trim();
 
                 if (response == "Y")
@@ -116,7 +125,7 @@ namespace mini_game_project
                 else if (response == "N")
                 {
                     Console.WriteLine("\nAlchemist: Oh, that's unfortunate. If you change your mind, Your help will always be appreciated.");
-                    return this; 
+                    return World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
                 }
                 else
                 {
@@ -130,6 +139,7 @@ namespace mini_game_project
                 return this;
             }
         }
+
 
         // Method to show available locations.
         public void DisplayAdjacentLocations()
