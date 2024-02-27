@@ -111,6 +111,7 @@ class Program
 
     public static void StartFarmersFieldMiniGame(Player player)
     {
+        Location townSquare = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
         Console.WriteLine("\nYou enter the Farmer's field. Snakes are lurking in the tall grass!");
         Console.WriteLine("Your goal is to kill three snakes within 5 seconds to complete the quest.\n");
 
@@ -167,9 +168,15 @@ class Program
 
             if (snakesKilled == 3)
             {
+
                 Console.WriteLine("\nCongratulations! You successfully cleared the farmer's field of snakes!");
                 World.QuestByID(World.QUEST_ID_CLEAR_FARMERS_FIELD).Complete();
-                Console.WriteLine("You have come back to the Town Square. Where would you like to go?");
+
+                Location currentLocation = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
+                player.CurrentLocation = townSquare.Name;
+                Console.WriteLine($"You are at: {player.CurrentLocation}. Where would you like to go?");
+
+                currentLocation.DisplayDetails();
 
                 World.Inventory.Add("Elixir Harvest Hoard");
                 // Update the player's quest or add logic related to completing the quest
@@ -193,6 +200,8 @@ class Program
 
     public static void StartAlchemistGardenMiniGame(Player player)
     {
+        Location townSquare = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
+
         Console.WriteLine("\nYou enter the Alchemist's garden. Rats are scurrying amidst the herb beds, hidden among the foliage.");
         Console.WriteLine("Your need to kill three rats within 5 turns to complete this mission.\n");
 
@@ -267,6 +276,12 @@ class Program
                 player.CurrentLocation = "Alchemist's hut";
                 World.Inventory.Add("Elixir Essence");
                 World.QuestByID(World.QUEST_ID_CLEAR_ALCHEMIST_GARDEN).Complete();
+
+                player.CurrentLocation = townSquare.Name;
+                Console.WriteLine($"You are at: {player.CurrentLocation}. Where would you like to go?");
+
+                Location currentLocation = World.LocationByID(World.LOCATION_ID_TOWN_SQUARE);
+                currentLocation.DisplayDetails();
                 break; // Break out of the outer loop if the player completes the quest
             }
             else
