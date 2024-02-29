@@ -168,6 +168,7 @@ namespace mini_game_project
                 case "N":
                     if (LocationToNorth != null)
                     {
+                        Console.Clear();
                         newLocation = LocationToNorth;
                         player.CurrentLocation = newLocation.Name;
                     }
@@ -179,6 +180,7 @@ namespace mini_game_project
                 case "S":
                     if (LocationToSouth != null)
                     {
+                        Console.Clear();
                         newLocation = LocationToSouth;
                         player.CurrentLocation = newLocation.Name;
                     }
@@ -190,6 +192,7 @@ namespace mini_game_project
                 case "E":
                     if (LocationToEast != null)
                     {
+                        Console.Clear();
                         newLocation = LocationToEast;
                         player.CurrentLocation = newLocation.Name;
                     }
@@ -201,6 +204,7 @@ namespace mini_game_project
                 case "W":
                     if (LocationToWest != null)
                     {
+                        Console.Clear();
                         newLocation = LocationToWest;
                         player.CurrentLocation = newLocation.Name;
                     }
